@@ -1,0 +1,4 @@
+github "duemunk/Async" "2.0.0"
+github "delba/Log" "v1.0"
+github "ReactiveX/RxSwift" "3.0.0-rc.1"
+github "realm/realm-cocoa" "v2.0.2"

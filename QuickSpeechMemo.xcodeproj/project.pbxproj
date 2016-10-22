@@ -7,21 +7,70 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B04FD0841DBE40C0004F424D /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04FD0831DBE40C0004F424D /* Entry.swift */; };
+		B04FD0861DBE4440004F424D /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04FD0851DBE4440004F424D /* ListViewController.swift */; };
+		B0B128301DBB6AC5007617F6 /* Log.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B1282F1DBB6AC5007617F6 /* Log.framework */; };
+		B0B128311DBB6AC5007617F6 /* Log.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0B1282F1DBB6AC5007617F6 /* Log.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B0B128331DBB8F02007617F6 /* KYShutterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B128321DBB8F02007617F6 /* KYShutterButton.swift */; };
 		B0C472971DBB406300AFC498 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C472961DBB406300AFC498 /* AppDelegate.swift */; };
-		B0C472991DBB406300AFC498 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C472981DBB406300AFC498 /* ViewController.swift */; };
+		B0C472991DBB406300AFC498 /* TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C472981DBB406300AFC498 /* TopViewController.swift */; };
 		B0C4729C1DBB406300AFC498 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0C4729A1DBB406300AFC498 /* Main.storyboard */; };
 		B0C4729E1DBB406300AFC498 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0C4729D1DBB406300AFC498 /* Assets.xcassets */; };
 		B0C472A11DBB406300AFC498 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0C4729F1DBB406300AFC498 /* LaunchScreen.storyboard */; };
+		B0C472B11DBB4ECA00AFC498 /* Async.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0C472AC1DBB4ECA00AFC498 /* Async.framework */; };
+		B0C472B21DBB4ECA00AFC498 /* Async.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0C472AC1DBB4ECA00AFC498 /* Async.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B0C472B31DBB4ECA00AFC498 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0C472AD1DBB4ECA00AFC498 /* Realm.framework */; };
+		B0C472B41DBB4ECA00AFC498 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0C472AD1DBB4ECA00AFC498 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B0C472B51DBB4ECA00AFC498 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0C472AE1DBB4ECA00AFC498 /* RealmSwift.framework */; };
+		B0C472B61DBB4ECA00AFC498 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0C472AE1DBB4ECA00AFC498 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B0C472B71DBB4ECA00AFC498 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0C472AF1DBB4ECA00AFC498 /* RxCocoa.framework */; };
+		B0C472B81DBB4ECA00AFC498 /* RxCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0C472AF1DBB4ECA00AFC498 /* RxCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B0C472B91DBB4ECA00AFC498 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0C472B01DBB4ECA00AFC498 /* RxSwift.framework */; };
+		B0C472BA1DBB4ECA00AFC498 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0C472B01DBB4ECA00AFC498 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B0C472C01DBB502D00AFC498 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C472BF1DBB502D00AFC498 /* Utility.swift */; };
+		B0D569741DBB64520066DA96 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D569731DBB64520066DA96 /* EditViewController.swift */; };
+		B0D569761DBB68480066DA96 /* Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D569751DBB68480066DA96 /* Configure.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		B0C472BB1DBB4ECA00AFC498 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B0C472BA1DBB4ECA00AFC498 /* RxSwift.framework in Embed Frameworks */,
+				B0C472B81DBB4ECA00AFC498 /* RxCocoa.framework in Embed Frameworks */,
+				B0C472B41DBB4ECA00AFC498 /* Realm.framework in Embed Frameworks */,
+				B0C472B21DBB4ECA00AFC498 /* Async.framework in Embed Frameworks */,
+				B0C472B61DBB4ECA00AFC498 /* RealmSwift.framework in Embed Frameworks */,
+				B0B128311DBB6AC5007617F6 /* Log.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		B04FD0831DBE40C0004F424D /* Entry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Entry.swift; path = Model/Entry.swift; sourceTree = "<group>"; };
+		B04FD0851DBE4440004F424D /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListViewController.swift; path = Controller/ListViewController.swift; sourceTree = "<group>"; };
+		B0B1282F1DBB6AC5007617F6 /* Log.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Log.framework; path = Carthage/Build/iOS/Log.framework; sourceTree = "<group>"; };
+		B0B128321DBB8F02007617F6 /* KYShutterButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KYShutterButton.swift; path = Helper/KYShutterButton.swift; sourceTree = "<group>"; };
 		B0C472931DBB406300AFC498 /* QuickSpeechMemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickSpeechMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0C472961DBB406300AFC498 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B0C472981DBB406300AFC498 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B0C472981DBB406300AFC498 /* TopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TopViewController.swift; path = Controller/TopViewController.swift; sourceTree = "<group>"; };
 		B0C4729B1DBB406300AFC498 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B0C4729D1DBB406300AFC498 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B0C472A01DBB406300AFC498 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B0C472A21DBB406300AFC498 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0C472AC1DBB4ECA00AFC498 /* Async.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Async.framework; path = Carthage/Build/iOS/Async.framework; sourceTree = "<group>"; };
+		B0C472AD1DBB4ECA00AFC498 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
+		B0C472AE1DBB4ECA00AFC498 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
+		B0C472AF1DBB4ECA00AFC498 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
+		B0C472B01DBB4ECA00AFC498 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
+		B0C472BF1DBB502D00AFC498 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utility.swift; path = Helper/Utility.swift; sourceTree = "<group>"; };
+		B0D569731DBB64520066DA96 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditViewController.swift; path = Controller/EditViewController.swift; sourceTree = "<group>"; };
+		B0D569751DBB68480066DA96 /* Configure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configure.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +78,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0C472B91DBB4ECA00AFC498 /* RxSwift.framework in Frameworks */,
+				B0C472B71DBB4ECA00AFC498 /* RxCocoa.framework in Frameworks */,
+				B0C472B31DBB4ECA00AFC498 /* Realm.framework in Frameworks */,
+				B0C472B11DBB4ECA00AFC498 /* Async.framework in Frameworks */,
+				B0C472B51DBB4ECA00AFC498 /* RealmSwift.framework in Frameworks */,
+				B0B128301DBB6AC5007617F6 /* Log.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +95,7 @@
 			children = (
 				B0C472951DBB406300AFC498 /* QuickSpeechMemo */,
 				B0C472941DBB406300AFC498 /* Products */,
+				B0C472BD1DBB4F2E00AFC498 /* Framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +110,73 @@
 		B0C472951DBB406300AFC498 /* QuickSpeechMemo */ = {
 			isa = PBXGroup;
 			children = (
+				B0C472A81DBB409E00AFC498 /* Model */,
+				B0C472A91DBB40A900AFC498 /* Controller */,
+				B0C472AA1DBB40BA00AFC498 /* View */,
+				B0C472BE1DBB500000AFC498 /* Helper */,
+				B0C472AB1DBB40E200AFC498 /* Support */,
 				B0C472961DBB406300AFC498 /* AppDelegate.swift */,
-				B0C472981DBB406300AFC498 /* ViewController.swift */,
+				B0D569751DBB68480066DA96 /* Configure.swift */,
+			);
+			path = QuickSpeechMemo;
+			sourceTree = "<group>";
+		};
+		B0C472A81DBB409E00AFC498 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B04FD0831DBE40C0004F424D /* Entry.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		B0C472A91DBB40A900AFC498 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B0C472981DBB406300AFC498 /* TopViewController.swift */,
+				B0D569731DBB64520066DA96 /* EditViewController.swift */,
+				B04FD0851DBE4440004F424D /* ListViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		B0C472AA1DBB40BA00AFC498 /* View */ = {
+			isa = PBXGroup;
+			children = (
 				B0C4729A1DBB406300AFC498 /* Main.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		B0C472AB1DBB40E200AFC498 /* Support */ = {
+			isa = PBXGroup;
+			children = (
 				B0C4729D1DBB406300AFC498 /* Assets.xcassets */,
 				B0C4729F1DBB406300AFC498 /* LaunchScreen.storyboard */,
 				B0C472A21DBB406300AFC498 /* Info.plist */,
 			);
-			path = QuickSpeechMemo;
+			name = Support;
+			sourceTree = "<group>";
+		};
+		B0C472BD1DBB4F2E00AFC498 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				B0B1282F1DBB6AC5007617F6 /* Log.framework */,
+				B0C472AC1DBB4ECA00AFC498 /* Async.framework */,
+				B0C472AD1DBB4ECA00AFC498 /* Realm.framework */,
+				B0C472AE1DBB4ECA00AFC498 /* RealmSwift.framework */,
+				B0C472AF1DBB4ECA00AFC498 /* RxCocoa.framework */,
+				B0C472B01DBB4ECA00AFC498 /* RxSwift.framework */,
+			);
+			name = Framework;
+			sourceTree = "<group>";
+		};
+		B0C472BE1DBB500000AFC498 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				B0C472BF1DBB502D00AFC498 /* Utility.swift */,
+				B0B128321DBB8F02007617F6 /* KYShutterButton.swift */,
+			);
+			name = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,6 +189,8 @@
 				B0C4728F1DBB406300AFC498 /* Sources */,
 				B0C472901DBB406300AFC498 /* Frameworks */,
 				B0C472911DBB406300AFC498 /* Resources */,
+				B0C472BB1DBB4ECA00AFC498 /* Embed Frameworks */,
+				B0C472BC1DBB4ED300AFC498 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -96,6 +213,7 @@
 				TargetAttributes = {
 					B0C472921DBB406300AFC498 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = DE78GM7VR9;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -131,13 +249,41 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		B0C472BC1DBB4ED300AFC498 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Async.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Log.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B0C4728F1DBB406300AFC498 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0C472991DBB406300AFC498 /* ViewController.swift in Sources */,
+				B04FD0841DBE40C0004F424D /* Entry.swift in Sources */,
+				B0D569741DBB64520066DA96 /* EditViewController.swift in Sources */,
+				B0C472991DBB406300AFC498 /* TopViewController.swift in Sources */,
 				B0C472971DBB406300AFC498 /* AppDelegate.swift in Sources */,
+				B0B128331DBB8F02007617F6 /* KYShutterButton.swift in Sources */,
+				B0C472C01DBB502D00AFC498 /* Utility.swift in Sources */,
+				B04FD0861DBE4440004F424D /* ListViewController.swift in Sources */,
+				B0D569761DBB68480066DA96 /* Configure.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,7 +404,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = DE78GM7VR9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = QuickSpeechMemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = naoki.nishiyama.QuickSpeechMemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -270,7 +422,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = DE78GM7VR9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = QuickSpeechMemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = naoki.nishiyama.QuickSpeechMemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -297,6 +455,7 @@
 				B0C472A71DBB406300AFC498 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,0 +1,14 @@
+# Carthage update command
+# carthage update --platform ios --no-use-binaries
+
+# RxSwift
+github "ReactiveX/RxSwift" "3.0.0-rc.1"
+
+# Realm
+github "realm/realm-cocoa" ~> 2.0.2
+
+# Async
+github "duemunk/Async" ~> 2.0.0
+
+# Log
+github "delba/Log" ~> 1.0
