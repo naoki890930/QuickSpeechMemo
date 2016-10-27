@@ -14,7 +14,8 @@ class ListViewController: UIViewController {
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     
-    fileprivate var data = [Entry]()
+    fileprivate var sections = [String]()
+    fileprivate var entries = [String: [Entry]]()
     
     private var disposeBag = DisposeBag()
     
@@ -31,8 +32,7 @@ class ListViewController: UIViewController {
         EntryInterface.rx.findAll()
             .subscribe(
                 onNext: { entries in
-                    self.data = entries
-                    self.tableView.reloadData()
+                    self.setupTableData(data: entries)
                 },
                 onError: { error in
                     log?.error(error)
@@ -40,17 +40,45 @@ class ListViewController: UIViewController {
             )
             .addDisposableTo(disposeBag)
     }
+    
+    private func setupTableData(data: [Entry]) {
+        sections = [String]()
+        entries = [String: [Entry]]()
+        
+        data.forEach { entry in
+            let dateString = entry.date.format("yyyy年MM月dd日")
+            if !sections.contains(dateString) { sections.append(dateString) }
+            if let _ = entries[dateString] {
+                entries[dateString]!.append(entry)
+            } else {
+                entries[dateString] = [entry]
+            }
+        }
+        
+        tableView.reloadData()
+    }
 }
 
 extension ListViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[safe: section]
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let key = sections[safe: section], let data = entries[key] else { return 0 }
         return data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
-        guard let entry = data[safe: indexPath.row] else { return cell }
+        guard let key = sections[safe: indexPath.section],
+            let data = entries[key],
+            let entry = data[safe: indexPath.row] else { return cell }
         
         cell.textLabel?.text = entry.title
         cell.detailTextLabel?.text = entry.text
@@ -61,7 +89,10 @@ extension ListViewController: UITableViewDataSource {
 
 extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let entry = data[safe: indexPath.row] else { return }
+        guard let key = sections[safe: indexPath.section],
+            let data = entries[key],
+            let entry = data[safe: indexPath.row] else { return }
+        
         let vc = EditViewController.instantiate(storyboardName: "Main")
         vc.entry = entry
         navigationController?.pushViewController(vc, animated: true)

@@ -12,3 +12,6 @@ github "duemunk/Async" ~> 2.0.0
 
 # Log
 github "delba/Log" ~> 1.0
+
+# SiwftLocation
+github "malcommac/SwiftLocation" ~> 1.0.6

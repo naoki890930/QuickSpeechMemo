@@ -10,6 +10,8 @@ import UIKit
 import Speech
 import RxSwift
 import RxCocoa
+import CoreLocation
+import SwiftLocation
 
 class EditViewController: UIViewController, StoryboardInitializable {
     
@@ -52,13 +54,18 @@ class EditViewController: UIViewController, StoryboardInitializable {
     
     private func setupSaveButton() {
         saveButton.rx.tap
-            .map { self.editTextView.text }
-            .filter { $0 != nil && $0!.count > 0 }
-            .flatMapLatest { text -> Observable<Void> in
+            .flatMapLatest { _ -> Observable<CLLocation> in
+                return Location.rxGetLocation(withAccuracy: .block)
+            }
+            .map { (self.editTextView.text, $0) }
+            .filter { $0.0 != nil && $0.0!.count > 0 }
+            .flatMapLatest { (text, location) -> Observable<Void> in
                 if let updateEntry = self.entry {
                     return EntryInterface.rx.update(object: updateEntry, title: self.titleTextField.text, text: text!)
                 } else {
-                    return EntryInterface.rx.save(title: self.titleTextField.text, text: text!)
+                    let latitude = Double(location.coordinate.latitude)
+                    let longitude = Double(location.coordinate.longitude)
+                    return EntryInterface.rx.save(title: self.titleTextField.text, text: text, latitude: latitude, longitude: longitude)
                 }
             }
             .subscribe(

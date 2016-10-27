@@ -22,6 +22,8 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>位置情報を付与したい場合に必要です</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>アプリの利用には許可が必要です</string>
 	<key>NSSpeechRecognitionUsageDescription</key>

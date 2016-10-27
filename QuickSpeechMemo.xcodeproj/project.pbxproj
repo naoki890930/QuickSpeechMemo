@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		B04FD0841DBE40C0004F424D /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04FD0831DBE40C0004F424D /* Entry.swift */; };
 		B04FD0861DBE4440004F424D /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04FD0851DBE4440004F424D /* ListViewController.swift */; };
+		B06954631DC2389B00250AAE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06954621DC2389B00250AAE /* CoreLocation.framework */; };
+		B06954671DC23B1400250AAE /* SwiftLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06954661DC23B1400250AAE /* SwiftLocation.framework */; };
+		B06954681DC23B1400250AAE /* SwiftLocation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B06954661DC23B1400250AAE /* SwiftLocation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B069546A1DC23B7E00250AAE /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06954691DC23B7E00250AAE /* Location.swift */; };
 		B0B128301DBB6AC5007617F6 /* Log.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B1282F1DBB6AC5007617F6 /* Log.framework */; };
 		B0B128311DBB6AC5007617F6 /* Log.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0B1282F1DBB6AC5007617F6 /* Log.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B0B128331DBB8F02007617F6 /* KYShutterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B128321DBB8F02007617F6 /* KYShutterButton.swift */; };
@@ -40,6 +44,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				B0C472BA1DBB4ECA00AFC498 /* RxSwift.framework in Embed Frameworks */,
+				B06954681DC23B1400250AAE /* SwiftLocation.framework in Embed Frameworks */,
 				B0C472B81DBB4ECA00AFC498 /* RxCocoa.framework in Embed Frameworks */,
 				B0C472B41DBB4ECA00AFC498 /* Realm.framework in Embed Frameworks */,
 				B0C472B21DBB4ECA00AFC498 /* Async.framework in Embed Frameworks */,
@@ -54,6 +59,9 @@
 /* Begin PBXFileReference section */
 		B04FD0831DBE40C0004F424D /* Entry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Entry.swift; path = Model/Entry.swift; sourceTree = "<group>"; };
 		B04FD0851DBE4440004F424D /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListViewController.swift; path = Controller/ListViewController.swift; sourceTree = "<group>"; };
+		B06954621DC2389B00250AAE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		B06954661DC23B1400250AAE /* SwiftLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftLocation.framework; path = Carthage/Build/iOS/SwiftLocation.framework; sourceTree = "<group>"; };
+		B06954691DC23B7E00250AAE /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Location.swift; path = Helper/Location.swift; sourceTree = "<group>"; };
 		B0B1282F1DBB6AC5007617F6 /* Log.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Log.framework; path = Carthage/Build/iOS/Log.framework; sourceTree = "<group>"; };
 		B0B128321DBB8F02007617F6 /* KYShutterButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KYShutterButton.swift; path = Helper/KYShutterButton.swift; sourceTree = "<group>"; };
 		B0C472931DBB406300AFC498 /* QuickSpeechMemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickSpeechMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +86,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B06954631DC2389B00250AAE /* CoreLocation.framework in Frameworks */,
+				B06954671DC23B1400250AAE /* SwiftLocation.framework in Frameworks */,
 				B0C472B91DBB4ECA00AFC498 /* RxSwift.framework in Frameworks */,
 				B0C472B71DBB4ECA00AFC498 /* RxCocoa.framework in Frameworks */,
 				B0C472B31DBB4ECA00AFC498 /* Realm.framework in Frameworks */,
@@ -90,12 +100,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B06954611DC2389B00250AAE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B06954621DC2389B00250AAE /* CoreLocation.framework */,
+				B06954661DC23B1400250AAE /* SwiftLocation.framework */,
+				B0B1282F1DBB6AC5007617F6 /* Log.framework */,
+				B0C472AC1DBB4ECA00AFC498 /* Async.framework */,
+				B0C472AD1DBB4ECA00AFC498 /* Realm.framework */,
+				B0C472AE1DBB4ECA00AFC498 /* RealmSwift.framework */,
+				B0C472AF1DBB4ECA00AFC498 /* RxCocoa.framework */,
+				B0C472B01DBB4ECA00AFC498 /* RxSwift.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B0C4728A1DBB406200AFC498 = {
 			isa = PBXGroup;
 			children = (
 				B0C472951DBB406300AFC498 /* QuickSpeechMemo */,
 				B0C472941DBB406300AFC498 /* Products */,
-				B0C472BD1DBB4F2E00AFC498 /* Framework */,
+				B06954611DC2389B00250AAE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -157,24 +182,12 @@
 			name = Support;
 			sourceTree = "<group>";
 		};
-		B0C472BD1DBB4F2E00AFC498 /* Framework */ = {
-			isa = PBXGroup;
-			children = (
-				B0B1282F1DBB6AC5007617F6 /* Log.framework */,
-				B0C472AC1DBB4ECA00AFC498 /* Async.framework */,
-				B0C472AD1DBB4ECA00AFC498 /* Realm.framework */,
-				B0C472AE1DBB4ECA00AFC498 /* RealmSwift.framework */,
-				B0C472AF1DBB4ECA00AFC498 /* RxCocoa.framework */,
-				B0C472B01DBB4ECA00AFC498 /* RxSwift.framework */,
-			);
-			name = Framework;
-			sourceTree = "<group>";
-		};
 		B0C472BE1DBB500000AFC498 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
 				B0C472BF1DBB502D00AFC498 /* Utility.swift */,
 				B0B128321DBB8F02007617F6 /* KYShutterButton.swift */,
+				B06954691DC23B7E00250AAE /* Location.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -261,6 +274,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Async.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Log.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftLocation.framework",
 			);
 			outputPaths = (
 			);
@@ -279,6 +293,7 @@
 				B0D569741DBB64520066DA96 /* EditViewController.swift in Sources */,
 				B0C472991DBB406300AFC498 /* TopViewController.swift in Sources */,
 				B0C472971DBB406300AFC498 /* AppDelegate.swift in Sources */,
+				B069546A1DC23B7E00250AAE /* Location.swift in Sources */,
 				B0B128331DBB8F02007617F6 /* KYShutterButton.swift in Sources */,
 				B0C472C01DBB502D00AFC498 /* Utility.swift in Sources */,
 				B04FD0861DBE4440004F424D /* ListViewController.swift in Sources */,

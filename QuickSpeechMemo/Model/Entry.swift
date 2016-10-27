@@ -14,8 +14,8 @@ class Entry: Object {
     dynamic var title = ""
     dynamic var text = ""
     dynamic var date = Date()
-    let latitude = RealmOptional<Float>()
-    let longitude = RealmOptional<Float>()
+    let latitude = RealmOptional<Double>()
+    let longitude = RealmOptional<Double>()
 }
 
 struct EntryInterface {
@@ -35,7 +35,7 @@ struct EntryInterface {
             }
         }
         
-        func save(title: String? = nil, text: String, date: Date = Date(), latitude: Float? = nil, longitude: Float? = nil) -> Observable<Void> {
+        func save(title: String? = nil, text: String, date: Date = Date(), latitude: Double? = nil, longitude: Double? = nil) -> Observable<Void> {
             return Observable<Void>.create { observer in
                 do {
                     try EntryInterface.save(title: title, text: text, date: date, latitude: latitude, longitude: longitude)
@@ -86,7 +86,7 @@ struct EntryInterface {
         return realm.objects(Entry.self).sorted(byProperty: "date").map { $0 }
     }
     
-    static func save(title: String?, text: String, date: Date = Date(), latitude: Float? = nil, longitude: Float? = nil) throws {
+    static func save(title: String?, text: String, date: Date = Date(), latitude: Double? = nil, longitude: Double? = nil) throws {
         let object = Entry()
         object.title = title == nil || title!.count == 0 ? date.format() : title!
         object.text = text
