@@ -20,6 +20,7 @@ class ListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setup()
     }
     
     private func setup() {
@@ -47,11 +48,7 @@ extension ListViewController: UITableViewDataSource {
         
         guard let entry = data[safe: indexPath.row] else { return cell }
         
-        let dtfmt = DateFormatter()
-        dtfmt.dateFormat = "yyyy/MM/dd HH:mm:ss"
-        let dateString = dtfmt.string(from: entry.date)
-        
-        cell.textLabel?.text = dateString
+        cell.textLabel?.text = entry.title
         cell.detailTextLabel?.text = entry.text
         
         return cell

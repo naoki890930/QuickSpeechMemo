@@ -11,6 +11,7 @@ import RealmSwift
 import RxSwift
 
 class Entry: Object {
+    dynamic var title = ""
     dynamic var text = ""
     dynamic var date = Date()
     let latitude = RealmOptional<Float>()
@@ -34,10 +35,10 @@ struct EntryInterface {
             }
         }
         
-        func save(text: String, date: Date = Date(), latitude: Float? = nil, longitude: Float? = nil) -> Observable<Void> {
+        func save(title: String? = nil, text: String, date: Date = Date(), latitude: Float? = nil, longitude: Float? = nil) -> Observable<Void> {
             return Observable<Void>.create { observer in
                 do {
-                    try EntryInterface.save(text: text, date: date, latitude: latitude, longitude: longitude)
+                    try EntryInterface.save(title: title, text: text, date: date, latitude: latitude, longitude: longitude)
                     observer.onNext()
                     observer.onCompleted()
                 } catch let error {
@@ -85,8 +86,9 @@ struct EntryInterface {
         return realm.objects(Entry.self).sorted(byProperty: "date").map { $0 }
     }
     
-    static func save(text: String, date: Date = Date(), latitude: Float? = nil, longitude: Float? = nil) throws {
+    static func save(title: String?, text: String, date: Date = Date(), latitude: Float? = nil, longitude: Float? = nil) throws {
         let object = Entry()
+        object.title = title == nil || title!.count == 0 ? date.format() : title!
         object.text = text
         object.date = date
         object.latitude.value = latitude

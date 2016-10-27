@@ -30,6 +30,14 @@ extension Collection {
     }
 }
 
+extension Date {
+    func format(_ dateFormat: String = "yyyy/MM/dd HH:mm:ss") -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = dateFormat
+        return dateFormatter.string(from: self)
+    }
+}
+
 protocol StoryboardInitializable {}
 
 extension StoryboardInitializable where Self: UIViewController {

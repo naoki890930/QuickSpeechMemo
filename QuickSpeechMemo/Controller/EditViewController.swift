@@ -14,6 +14,9 @@ import RxCocoa
 class EditViewController: UIViewController {
     
     @IBOutlet weak var editTextView: UITextView!
+    @IBOutlet weak var titleTextField: UITextField! {
+        didSet { titleTextField.delegate = self }
+    }
     @IBOutlet weak var saveButton: UIBarButtonItem! {
         didSet { saveButton.isEnabled = false }
     }
@@ -32,11 +35,6 @@ class EditViewController: UIViewController {
         setup()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = false
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         log?.warning("didReceiveMemoryWarning")
@@ -46,13 +44,16 @@ class EditViewController: UIViewController {
     
     private func setup() {
         setupKeyborad()
+        setupSaveButton()
     }
     
     private func setupSaveButton() {
         saveButton.rx.tap
             .map { self.editTextView.text }
             .filter { $0 != nil && $0!.count > 0 }
-            .flatMapLatest { EntryInterface.rx.save(text: $0) }
+            .flatMapLatest {
+                EntryInterface.rx.save(title: self.titleTextField.text, text: $0)
+            }
             .subscribe(
                 onNext: {
                     _ = self.navigationController?.popViewController(animated: true)
@@ -80,6 +81,7 @@ class EditViewController: UIViewController {
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(EditViewController.tapDoneButton(sender:)))
         kbToolBar.items = [spacer, doneButton]
+        
         editTextView.inputAccessoryView = kbToolBar
     }
     
@@ -186,5 +188,12 @@ class EditViewController: UIViewController {
             stopSpeechRecognition()
             sender.buttonState = .normal
         }
+    }
+}
+
+extension EditViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
