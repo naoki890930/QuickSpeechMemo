@@ -11,7 +11,7 @@ import Speech
 import RxSwift
 import RxCocoa
 
-class EditViewController: UIViewController {
+class EditViewController: UIViewController, StoryboardInitializable {
     
     @IBOutlet weak var editTextView: UITextView!
     @IBOutlet weak var titleTextField: UITextField! {
@@ -20,6 +20,8 @@ class EditViewController: UIViewController {
     @IBOutlet weak var saveButton: UIBarButtonItem! {
         didSet { saveButton.isEnabled = false }
     }
+    
+    var entry: Entry? = nil
     
     private var disposeBag = DisposeBag()
     
@@ -45,14 +47,19 @@ class EditViewController: UIViewController {
     private func setup() {
         setupKeyborad()
         setupSaveButton()
+        setupInputFields()
     }
     
     private func setupSaveButton() {
         saveButton.rx.tap
             .map { self.editTextView.text }
             .filter { $0 != nil && $0!.count > 0 }
-            .flatMapLatest {
-                EntryInterface.rx.save(title: self.titleTextField.text, text: $0)
+            .flatMapLatest { text -> Observable<Void> in
+                if let updateEntry = self.entry {
+                    return EntryInterface.rx.update(object: updateEntry, title: self.titleTextField.text, text: text!)
+                } else {
+                    return EntryInterface.rx.save(title: self.titleTextField.text, text: text!)
+                }
             }
             .subscribe(
                 onNext: {
@@ -87,6 +94,11 @@ class EditViewController: UIViewController {
     
     func tapDoneButton(sender: UIBarButtonItem) {
         view.endEditing(true)
+    }
+    
+    private func setupInputFields() {
+        titleTextField.text = entry?.title
+        editTextView.text = entry?.text ?? ""
     }
     
     // MARK: Speech Framework

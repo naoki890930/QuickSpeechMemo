@@ -20,10 +20,14 @@ class ListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
     }
     
-    private func setup() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchList()
+    }
+    
+    private func fetchList() {
         EntryInterface.rx.findAll()
             .subscribe(
                 onNext: { entries in
@@ -52,5 +56,14 @@ extension ListViewController: UITableViewDataSource {
         cell.detailTextLabel?.text = entry.text
         
         return cell
+    }
+}
+
+extension ListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let entry = data[safe: indexPath.row] else { return }
+        let vc = EditViewController.instantiate(storyboardName: "Main")
+        vc.entry = entry
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

@@ -49,10 +49,10 @@ struct EntryInterface {
             }
         }
         
-        func update(object: Entry, text: String) -> Observable<Void> {
+        func update(object: Entry, title: String? = nil, text: String? = nil) -> Observable<Void> {
             return Observable<Void>.create { observer in
                 do {
-                    try EntryInterface.update(object: object, text: text)
+                    try EntryInterface.update(object: object, title: title, text: text)
                     observer.onNext()
                     observer.onCompleted()
                 } catch let error {
@@ -100,10 +100,15 @@ struct EntryInterface {
         }
     }
     
-    static func update(object: Entry, text: String) throws {
+    static func update(object: Entry, title: String? = nil, text: String? = nil) throws {
         let realm = try Realm()
         try realm.write {
-            object.text = text
+            if let title = title {
+                object.title = title
+            }
+            if let text = text {
+                object.text = text
+            }
         }
     }
     

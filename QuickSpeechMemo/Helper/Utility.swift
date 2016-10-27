@@ -38,6 +38,24 @@ extension Date {
     }
 }
 
+extension UIApplication {
+    static var rootViewController: UIViewController? {
+        return shared.delegate?.window??.rootViewController
+    }
+    
+    static func topViewController(_ vc: UIViewController? = rootViewController) -> UIViewController? {
+        if let nc = vc as? UINavigationController {
+            return topViewController(nc.visibleViewController)
+        } else if let tc = vc as? UITabBarController {
+            return topViewController(tc.selectedViewController)
+        } else if let pc = vc?.presentedViewController {
+            return topViewController(pc)
+        }
+        
+        return vc
+    }
+}
+
 protocol StoryboardInitializable {}
 
 extension StoryboardInitializable where Self: UIViewController {
