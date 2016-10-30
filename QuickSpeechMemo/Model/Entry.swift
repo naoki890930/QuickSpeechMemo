@@ -83,7 +83,7 @@ struct EntryInterface {
     
     static func findAll() throws -> [Entry] {
         let realm = try Realm()
-        return realm.objects(Entry.self).sorted(byProperty: "date").map { $0 }
+        return realm.objects(Entry.self).sorted(byProperty: "date", ascending: false).map { $0 }
     }
     
     static func save(title: String?, text: String, date: Date = Date(), latitude: Double? = nil, longitude: Double? = nil) throws {

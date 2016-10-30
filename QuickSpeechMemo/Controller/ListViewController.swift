@@ -18,7 +18,7 @@ class ListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var mapView: MKMapView!
     
-    private var entryData = Variable([Entry]())
+    fileprivate var entryData = Variable([Entry]())
     fileprivate var sections = [String]()
     fileprivate var entries = [String: [Entry]]()
     
@@ -80,13 +80,14 @@ class ListViewController: UIViewController {
             .shareReplayLatestWhileConnected()
             .skip(1)
             .subscribe(onNext: { data in
-                data.forEach { entry in
+                data.enumerated().forEach { index, entry in
                     guard let latitude = entry.latitude.value,
                         let longitude = entry.longitude.value else { return }
                     let annotation = MKPointAnnotation()
                     annotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude)
                     annotation.title = entry.title
                     annotation.subtitle = entry.text
+                    annotation.accessibilityValue = index.description
                     self.mapView.addAnnotation(annotation)
                 }
             })
@@ -158,6 +159,36 @@ extension ListViewController: UITableViewDelegate {
         guard let key = sections[safe: indexPath.section],
             let data = entries[key],
             let entry = data[safe: indexPath.row] else { return }
+        
+        let vc = EditViewController.instantiate(storyboardName: "Main")
+        vc.entry = entry
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension ListViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let pointAnnotation = annotation as? MKPointAnnotation,
+            let identifier = pointAnnotation.accessibilityValue else { return nil }
+        
+        var view: MKAnnotationView
+        if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
+            view = annotationView
+        } else {
+            view = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: identifier)
+        }
+        
+        let button = UIButton(type: .detailDisclosure)
+        view.rightCalloutAccessoryView = button
+        view.canShowCallout = true
+        
+        return view
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        guard let identifier = view.reuseIdentifier,
+            let index = Int(identifier),
+            let entry = entryData.value[safe: index] else { return }
         
         let vc = EditViewController.instantiate(storyboardName: "Main")
         vc.entry = entry

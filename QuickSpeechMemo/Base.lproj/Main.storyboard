@@ -321,6 +321,9 @@
                             </tableView>
                             <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" showsScale="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iDm-Y0-to7">
                                 <rect key="frame" x="0.0" y="112" width="375" height="555"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Huf-19-uyT" id="ecE-OH-iii"/>
+                                </connections>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

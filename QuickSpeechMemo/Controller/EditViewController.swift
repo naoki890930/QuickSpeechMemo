@@ -24,6 +24,7 @@ class EditViewController: UIViewController, StoryboardInitializable {
     }
     
     var entry: Entry? = nil
+    private var inputText = ""
     
     private var disposeBag = DisposeBag()
     
@@ -111,6 +112,8 @@ class EditViewController: UIViewController, StoryboardInitializable {
     // MARK: Speech Framework
     
     private func startSpeechRecognition() {
+        inputText = editTextView.text
+        
         requestSRAuthorization()
             .do(onError: { _ in
                 log?.error("Not authorized")
@@ -118,11 +121,12 @@ class EditViewController: UIViewController, StoryboardInitializable {
             .flatMapLatest { () -> Observable<String> in
                 return self.recognizeSpeech()
             }
-            .do(
-                onError: { error in log?.error(error) },
-                onCompleted: { self.stopSpeechRecognition() }
+            .subscribe(
+                onNext: { text in
+                    self.editTextView.text = self.inputText + text
+                },
+               onError: { error in log?.error(error) }
             )
-            .bindTo(editTextView.rx.text)
             .addDisposableTo(disposeBag)
     }
     
