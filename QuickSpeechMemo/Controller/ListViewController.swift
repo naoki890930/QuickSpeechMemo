@@ -8,12 +8,17 @@
 
 import UIKit
 import RxSwift
+import MapKit
+import CoreLocation
+import SwiftLocation
 
 class ListViewController: UIViewController {
     
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var mapView: MKMapView!
     
+    private var entryData = Variable([Entry]())
     fileprivate var sections = [String]()
     fileprivate var entries = [String: [Entry]]()
     
@@ -21,6 +26,9 @@ class ListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupSegmentControl()
+        setupTable()
+        setupMap()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,16 +36,27 @@ class ListViewController: UIViewController {
         fetchList()
     }
     
-    private func fetchList() {
-        EntryInterface.rx.findAll()
-            .subscribe(
-                onNext: { entries in
-                    self.setupTableData(data: entries)
-                },
-                onError: { error in
-                    log?.error(error)
-                }
-            )
+    // MARK: Setup
+    
+    private func setupSegmentControl () {
+        segmentControl.rx.controlEvent(.valueChanged)
+            .asObservable()
+            .subscribe(onNext: {
+                let enableMap = self.segmentControl.selectedSegmentIndex == 1
+                self.tableView.isHidden = enableMap
+                self.mapView.isHidden = !enableMap
+            })
+            .addDisposableTo(disposeBag)
+    }
+    
+    private func setupTable() {
+        entryData.asObservable()
+            .shareReplayLatestWhileConnected()
+            .skip(1)
+            .subscribe(onNext: { data in
+                self.setupTableData(data: data)
+                self.tableView.reloadData()
+            })
             .addDisposableTo(disposeBag)
     }
     
@@ -54,8 +73,55 @@ class ListViewController: UIViewController {
                 entries[dateString] = [entry]
             }
         }
+    }
+    
+    private func setupMap() {
+        entryData.asObservable()
+            .shareReplayLatestWhileConnected()
+            .skip(1)
+            .subscribe(onNext: { data in
+                data.forEach { entry in
+                    guard let latitude = entry.latitude.value,
+                        let longitude = entry.longitude.value else { return }
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude)
+                    annotation.title = entry.title
+                    annotation.subtitle = entry.text
+                    self.mapView.addAnnotation(annotation)
+                }
+            })
+            .addDisposableTo(disposeBag)
         
-        tableView.reloadData()
+        setupMapWithUserLocation()
+    }
+    
+    private func setupMapWithUserLocation() {
+        Location.rxGetLocation(withAccuracy: .block)
+            .subscribe(onNext: { location in
+                self.setMap(coordinate: location.coordinate)
+            })
+            .addDisposableTo(disposeBag)
+    }
+    
+    private func setMap(coordinate: CLLocationCoordinate2D) {
+        let span = MKCoordinateSpanMake(0.1, 0.1)
+        let region = MKCoordinateRegionMake(coordinate, span)
+        mapView.setRegion(region, animated: false)
+    }
+    
+    // MARK: Access DB
+    
+    private func fetchList() {
+        EntryInterface.rx.findAll()
+            .subscribe(
+                onNext: { entries in
+                    self.entryData.value = entries
+                },
+                onError: { error in
+                    log?.error(error)
+                }
+            )
+            .addDisposableTo(disposeBag)
     }
 }
 
