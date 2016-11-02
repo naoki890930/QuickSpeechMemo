@@ -35,6 +35,7 @@
 		B0D569741DBB64520066DA96 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D569731DBB64520066DA96 /* EditViewController.swift */; };
 		B0D569761DBB68480066DA96 /* Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D569751DBB68480066DA96 /* Configure.swift */; };
 		B0E319951DC5AFE90020CBA7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E319941DC5AFE90020CBA7 /* MapKit.framework */; };
+		C0282C851DC9D87700450082 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C0282C841DC9D87700450082 /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -81,6 +82,7 @@
 		B0D569731DBB64520066DA96 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditViewController.swift; path = Controller/EditViewController.swift; sourceTree = "<group>"; };
 		B0D569751DBB68480066DA96 /* Configure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configure.swift; sourceTree = "<group>"; };
 		B0E319941DC5AFE90020CBA7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		C0282C841DC9D87700450082 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 				B0C4729D1DBB406300AFC498 /* Assets.xcassets */,
 				B0C4729F1DBB406300AFC498 /* LaunchScreen.storyboard */,
 				B0C472A21DBB406300AFC498 /* Info.plist */,
+				C0282C841DC9D87700450082 /* Settings.bundle */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0282C851DC9D87700450082 /* Settings.bundle in Resources */,
 				B0C472A11DBB406300AFC498 /* LaunchScreen.storyboard in Resources */,
 				B0C4729E1DBB406300AFC498 /* Assets.xcassets in Resources */,
 				B0C4729C1DBB406300AFC498 /* Main.storyboard in Resources */,
