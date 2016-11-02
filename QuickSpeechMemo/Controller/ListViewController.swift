@@ -39,6 +39,7 @@ class ListViewController: UIViewController {
     // MARK: Setup
     
     private func setupSegmentControl () {
+        // 日付／位置の表示切替
         segmentControl.rx.controlEvent(.valueChanged)
             .asObservable()
             .subscribe(onNext: {
@@ -49,7 +50,9 @@ class ListViewController: UIViewController {
             .addDisposableTo(disposeBag)
     }
     
+    /// 日付テーブルビュー設定
     private func setupTable() {
+        // 表示データの更新をテーブルビューに反映
         entryData.asObservable()
             .shareReplayLatestWhileConnected()
             .skip(1)
@@ -60,10 +63,12 @@ class ListViewController: UIViewController {
             .addDisposableTo(disposeBag)
     }
     
+    /// 日付テーブルビュー用データ設定
     private func setupTableData(data: [Entry]) {
         sections = [String]()
         entries = [String: [Entry]]()
         
+        // 日付ごとにセクションを分ける
         data.forEach { entry in
             let dateString = entry.date.format("yyyy年MM月dd日")
             if !sections.contains(dateString) { sections.append(dateString) }
@@ -75,11 +80,14 @@ class ListViewController: UIViewController {
         }
     }
     
+    /// 位置別メモ表示用地図設定
     private func setupMap() {
+        // 表示データを地図に反映
         entryData.asObservable()
             .shareReplayLatestWhileConnected()
             .skip(1)
             .subscribe(onNext: { data in
+                // 位置ごとにアノテーションを追加
                 data.enumerated().forEach { index, entry in
                     guard let latitude = entry.latitude.value,
                         let longitude = entry.longitude.value else { return }
@@ -93,9 +101,11 @@ class ListViewController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
+        // 現在地を中心に地図を表示
         setupMapWithUserLocation()
     }
     
+    /// 現在地を中心に地図を表示
     private func setupMapWithUserLocation() {
         Location.rxGetLocation(withAccuracy: .block)
             .subscribe(onNext: { location in
@@ -111,7 +121,7 @@ class ListViewController: UIViewController {
     }
     
     // MARK: Access DB
-    
+    /// 表示データ取得
     private func fetchList() {
         EntryInterface.rx.findAll()
             .subscribe(
@@ -178,6 +188,7 @@ extension ListViewController: MKMapViewDelegate {
             view = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: identifier)
         }
         
+        // アノテーションにメモ編集ボタン追加
         let button = UIButton(type: .detailDisclosure)
         view.rightCalloutAccessoryView = button
         view.canShowCallout = true

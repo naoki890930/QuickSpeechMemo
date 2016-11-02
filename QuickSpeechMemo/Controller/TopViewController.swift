@@ -57,6 +57,7 @@ class TopViewController: UIViewController {
             })
             .addDisposableTo(disposeBag)
         
+        // タイトルラベルをダブルタップでRealmデータクリア
         let gesture = UITapGestureRecognizer(target: self, action: #selector(TopViewController.clearRealm(_:)))
         gesture.numberOfTapsRequired = 2
         titleLabel.isUserInteractionEnabled = true

@@ -53,32 +53,40 @@ class EditViewController: UIViewController, StoryboardInitializable {
         setupInputFields()
     }
     
+    /// 保存ボタン設定
     private func setupSaveButton() {
-        saveButton.rx.tap
-            .flatMapLatest { _ -> Observable<CLLocation> in
-                return Location.rxGetLocation(withAccuracy: .block)
-            }
-            .map { (self.editTextView.text, $0) }
-            .filter { $0.0 != nil && $0.0!.count > 0 }
-            .flatMapLatest { (text, location) -> Observable<Void> in
-                if let updateEntry = self.entry {
-                    return EntryInterface.rx.update(object: updateEntry, title: self.titleTextField.text, text: text!)
-                } else {
-                    let latitude = Double(location.coordinate.latitude)
-                    let longitude = Double(location.coordinate.longitude)
-                    return EntryInterface.rx.save(title: self.titleTextField.text, text: text, latitude: latitude, longitude: longitude)
+        var saveButtonTapResult: Observable<Void>
+        if let updateEntry = entry {
+            // 更新時
+            saveButtonTapResult = saveButton.rx.tap
+                .flatMapLatest { _ -> Observable<Void> in
+                    return EntryInterface.rx.update(
+                        object: updateEntry,
+                        title: self.titleTextField.text,
+                        text: self.editTextView.text)
                 }
-            }
-            .subscribe(
-                onNext: {
-                    _ = self.navigationController?.popViewController(animated: true)
-                },
-                onError: { error in
-                    log?.error(error)
+        } else {
+            // 新規保存時
+            saveButtonTapResult = saveButton.rx.tap
+                .flatMapLatest { _ -> Observable<CLLocation> in
+                    return Location.rxGetLocation(withAccuracy: .block)
                 }
+                .flatMapLatest { location -> Observable<Void> in
+                    return EntryInterface.rx.save(
+                        title: self.titleTextField.text,
+                        text: self.editTextView.text,
+                        latitude: Double(location.coordinate.latitude),
+                        longitude: Double(location.coordinate.longitude))
+                }
+        }
+        // 保存成功時は前の画面に戻る
+        saveButtonTapResult.subscribe(
+                onNext: { _ = self.navigationController?.popViewController(animated: true) },
+                onError: { error in log?.error(error) }
             )
             .addDisposableTo(disposeBag)
         
+        // メモ内容が入力されたら保存ボタンを有効化
         editTextView.rx.text
             .map { $0 == nil ? 0 : $0!.count }
             .subscribe(onNext: { textCount in
@@ -87,12 +95,14 @@ class EditViewController: UIViewController, StoryboardInitializable {
             .addDisposableTo(disposeBag)
     }
     
+    /// 入力時キーボード設定
     private func setupKeyborad() {
         let size = CGSize(width: Device.Screen.size.width, height: 50)
         let kbToolBar = UIToolbar(frame: CGRect(origin: CGPoint.zero, size: size))
         kbToolBar.barStyle = .default
         kbToolBar.sizeToFit()
         
+        // キーボードに完了ボタン追加
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(EditViewController.tapDoneButton(sender:)))
         kbToolBar.items = [spacer, doneButton]
@@ -104,41 +114,47 @@ class EditViewController: UIViewController, StoryboardInitializable {
         view.endEditing(true)
     }
     
+    /// 入力フィールドの初期値設定
     private func setupInputFields() {
         titleTextField.text = entry?.title
         editTextView.text = entry?.text ?? ""
     }
     
     // MARK: Speech Framework
-    
+    /// 音声認識開始
     private func startSpeechRecognition() {
+        // 前回入力値を保管
         inputText = editTextView.text
         
-        requestSRAuthorization()
+        requestSRAuthorization() // 音声認識許可
             .do(onError: { _ in
                 log?.error("Not authorized")
             })
             .flatMapLatest { () -> Observable<String> in
-                return self.recognizeSpeech()
+                return self.recognizeSpeech() // 音声認識開始
             }
             .subscribe(
                 onNext: { text in
-                    self.editTextView.text = self.inputText + text
+                    self.editTextView.text = self.inputText + text // 音声認識結果を入力フィールドに反映
                 },
                onError: { error in log?.error(error) }
             )
             .addDisposableTo(disposeBag)
     }
     
+    /// 音声認識準備
     private func prepareSpeechRecognition() {
+        // 音声認識の言語を日本語に設定
         guard let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "ja-JP")) else {
             fatalError("Fial to init SFSpeechRecognizer")
         }
         speechRecgnizer = recognizer
         
         speechRequest = SFSpeechAudioBufferRecognitionRequest()
+        // 確定前の結果を随時取得
         speechRequest.shouldReportPartialResults = true
         
+        // マイク入力設定
         audioEngin = AVAudioEngine()
         guard let inputNode = audioEngin.inputNode else { fatalError("Fail to get inputNode") }
         let recodingFormat = inputNode.outputFormat(forBus: 0)
@@ -148,6 +164,9 @@ class EditViewController: UIViewController, StoryboardInitializable {
         audioEngin.prepare()
     }
     
+    /// 音声認識の許可を求める
+    ///
+    /// - Returns: Observable
     private func requestSRAuthorization() -> Observable<Void> {
         return Observable<Void>.create { observer in
             SFSpeechRecognizer.requestAuthorization { status in
@@ -163,6 +182,9 @@ class EditViewController: UIViewController, StoryboardInitializable {
         }
     }
     
+    /// 音声認識
+    ///
+    /// - Returns: Observable
     private func recognizeSpeech() -> Observable<String> {
         prepareSpeechRecognition()
         
@@ -195,6 +217,7 @@ class EditViewController: UIViewController, StoryboardInitializable {
         }
     }
     
+    // 音声認識終了
     private func stopSpeechRecognition() {
         audioEngin.stop()
         speechRequest.endAudio()

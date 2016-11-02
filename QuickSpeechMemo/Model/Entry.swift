@@ -21,6 +21,9 @@ class Entry: Object {
 struct EntryInterface {
     
     struct Reactive {
+        /// 全件取得
+        ///
+        /// - Returns: Observable
         func findAll() -> Observable<[Entry]> {
             return Observable<[Entry]>.create { observer in
                 do {
@@ -35,6 +38,15 @@ struct EntryInterface {
             }
         }
         
+        /// 新規保存
+        ///
+        /// - Parameters:
+        ///   - title: タイトル
+        ///   - text: 内容
+        ///   - date: 作成日時
+        ///   - latitude: 緯度
+        ///   - longitude: 経度
+        /// - Returns: Observable
         func save(title: String? = nil, text: String, date: Date = Date(), latitude: Double? = nil, longitude: Double? = nil) -> Observable<Void> {
             return Observable<Void>.create { observer in
                 do {
@@ -49,6 +61,13 @@ struct EntryInterface {
             }
         }
         
+        /// 更新
+        ///
+        /// - Parameters:
+        ///   - object: Realm Object
+        ///   - title: タイトル
+        ///   - text: 内容
+        /// - Returns: Observable
         func update(object: Entry, title: String? = nil, text: String? = nil) -> Observable<Void> {
             return Observable<Void>.create { observer in
                 do {
@@ -63,6 +82,10 @@ struct EntryInterface {
             }
         }
         
+        /// 削除
+        ///
+        /// - Parameter object: Realm Object
+        /// - Returns: Observable
         func delete(object: Entry) -> Observable<Void> {
             return Observable<Void>.create { observer in
                 do {
